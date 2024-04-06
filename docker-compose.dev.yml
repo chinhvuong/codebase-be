@@ -13,6 +13,7 @@ services:
       - ./:/usr/src/app
     depends_on:
       - redis
+      - mongodb
     restart: unless-stopped
   redis:
     container_name: redis
@@ -21,6 +22,29 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+    restart: unless-stopped
+  mongodb:
+    container_name: ${DATABASE_HOST}
+    image: mongo:6.0.9-jammy
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DATABASE_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+    expose:
+      - ${DATABASE_PORT}
+    volumes:
+      - ./mongo-data:/data/db
+    restart: unless-stopped
+  mongo_express:
+    container_name: mongo_express
+    image: mongo-express:latest
+    environment:
+      ME_CONFIG_BASICAUTH_USERNAME: ${DATABASE_USERNAME}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${DATABASE_PASSWORD}
+      ME_CONFIG_MONGODB_URL: ${DATABASE_URI}?authSource=admin
+    ports:
+      - 8002:8081
+    depends_on:
+      - mongodb
     restart: unless-stopped
 volumes:
   redis_data:

@@ -19,4 +19,12 @@ export const validationSchema = Joi.object({
 		.valid('development', 'production', 'test', 'provision', 'staging')
 		.default('development'),
 	PORT: Joi.number().default(3000),
+	JWT_ACCESS_TOKEN_SECRET: Joi.string().required(),
+	JWT_REFRESH_TOKEN_SECRET: Joi.string().required(),
+	JWT_ACCESS_TOKEN_EXPIRATION_TIME: Joi.string()
+		.pattern(/^[0-9]+$/)
+		.required(),
+	JWT_REFRESH_TOKEN_EXPIRATION_TIME: Joi.string()
+		.pattern(/^[0-9]+$/)
+		.required(),
 });
