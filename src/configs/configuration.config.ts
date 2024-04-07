@@ -27,4 +27,6 @@ export const validationSchema = Joi.object({
 	JWT_REFRESH_TOKEN_EXPIRATION_TIME: Joi.string()
 		.pattern(/^[0-9]+$/)
 		.required(),
+	REDIS_HOST: Joi.string().required(),
+	REDIS_PORT: Joi.number().required(),
 });
