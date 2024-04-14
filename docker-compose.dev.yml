@@ -16,13 +16,25 @@ services:
       - mongodb
     restart: unless-stopped
   redis:
-    container_name: redis
+    container_name: ${REDIS_HOST}
+    hostname: ${REDIS_HOST}
     image: "redis:alpine"
     ports:
-      - "6379:6379"
+      - ${REDIS_PORT}:${REDIS_PORT}
     volumes:
       - redis_data:/data
     restart: unless-stopped
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      REDIS_HOSTS: local:${REDIS_HOST}:${REDIS_PORT}
+      HTTP_USER: ${REDIS_COMMANDER_USER}
+      HTTP_PASSWORD: ${REDIS_COMMANDER_PASS}
+    ports:
+      - "8001:8081"
+    depends_on:
+      - redis
   mongodb:
     container_name: ${DATABASE_HOST}
     image: mongo:6.0.9-jammy
