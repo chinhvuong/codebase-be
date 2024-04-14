@@ -19,7 +19,6 @@ export class UsersService extends BaseServiceAbstract<User> {
 		const cacheKey = 'users';
 		const inCache = await this.cacheManager.get<any>(cacheKey);
 		if (inCache) {
-			console.log('🚀 ~ UsersService ~ findAll ~ inCache:', inCache);
 			return inCache;
 		}
 		const inDB = await this.userRepo.findAll({});
