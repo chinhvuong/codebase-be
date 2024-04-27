@@ -4,6 +4,7 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { configSwagger } from '@/configs/api-docs.config';
 import { LoggerFactory } from './configs/logger';
+import { configCors } from './configs/cors.config';
 
 async function bootstrap() {
 	const logger = new Logger(bootstrap.name);
@@ -11,6 +12,7 @@ async function bootstrap() {
 		logger: LoggerFactory('API'),
 	});
 	configSwagger(app);
+	configCors(app);
 	const configService = app.get(ConfigService);
 
 	app.useGlobalPipes(
