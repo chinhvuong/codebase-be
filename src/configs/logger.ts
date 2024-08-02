@@ -1,8 +1,8 @@
-import { transports, format } from 'winston';
 import {
-	WinstonModule,
 	utilities as nestWinstonModuleUtilities,
+	WinstonModule,
 } from 'nest-winston';
+import { format, transports } from 'winston';
 
 export const LoggerFactory = (appName: string) => {
 	let consoleFormat;

@@ -1,11 +1,13 @@
 import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { ApiBearerAuth, ApiTags, ApiBody } from '@nestjs/swagger';
-import { SignUpDto } from './dto/sign-up.dto';
-import { LocalAuthGuard } from './guards/local.guard';
+import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+
 import { RequestWithUser } from '@/types/request.type';
+
+import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
+import { SignUpDto } from './dto/sign-up.dto';
 import { JwtRefreshTokenGuard } from './guards/jwt-refresh-token.guard';
+import { LocalAuthGuard } from './guards/local.guard';
 
 @ApiTags('Auth')
 @Controller('auth')

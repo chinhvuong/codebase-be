@@ -1,10 +1,12 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
+
 import { configSwagger } from '@/configs/api-docs.config';
-import { LoggerFactory } from './configs/logger';
+
+import { AppModule } from './app.module';
 import { configCors } from './configs/cors.config';
+import { LoggerFactory } from './configs/logger';
 
 async function bootstrap() {
 	const logger = new Logger(bootstrap.name);
@@ -20,7 +22,7 @@ async function bootstrap() {
 			whitelist: true,
 		}),
 	);
-	await app.listen(configService.get('PORT'), () =>
+	await app.listen(configService.get('PORT') || 3000, () =>
 		logger.log(`Application running on port ${configService.get('PORT')}`),
 	);
 }

@@ -1,9 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { UsersRepositoryInterface } from './interfaces/users.interface';
-import { BaseServiceAbstract } from '@/services/base/base.abstract.service';
-import { User } from './entities/user.entity';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
+import { Inject, Injectable } from '@nestjs/common';
 import { Cache } from 'cache-manager';
+
+import { BaseServiceAbstract } from '@/services/base/base.abstract.service';
+
+import { User } from './entities/user.entity';
+import { UsersRepositoryInterface } from './interfaces/users.interface';
 
 @Injectable()
 export class UsersService extends BaseServiceAbstract<User> {

@@ -1,15 +1,17 @@
-import * as bcrypt from 'bcryptjs';
-import { SignUpDto } from './dto/sign-up.dto';
-import { UsersService } from '@/modules/users/users.service';
 import {
 	BadRequestException,
 	ConflictException,
 	Injectable,
 	UnauthorizedException,
 } from '@nestjs/common';
-import { User } from '../users/entities/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import * as bcrypt from 'bcryptjs';
+
+import { UsersService } from '@/modules/users/users.service';
+
+import { User } from '../users/entities/user.entity';
+import { SignUpDto } from './dto/sign-up.dto';
 import { TokenPayload } from './interfaces/token.interface';
 
 @Injectable()

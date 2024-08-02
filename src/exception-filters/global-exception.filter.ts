@@ -32,11 +32,13 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 					? {
 							response: exception.response,
 							stack: exception.stack,
-						}
+					  }
 					: null,
 		});
 		this.logger.debug(
-			`${response.req.method} ${response.req.originalUrl} ${exception.message} ${JSON.stringify(response.req.body)}`,
+			`${response.req.method} ${response.req.originalUrl} ${
+				exception.message
+			} ${JSON.stringify(response.req.body)}`,
 		);
 	}
 }

@@ -1,4 +1,3 @@
-import { BaseEntity } from '@/modules/shared/base/base.entity';
 import {
 	FilterQuery,
 	Model,
@@ -7,7 +6,10 @@ import {
 	UpdateQuery,
 	UpdateWithAggregationPipeline,
 } from 'mongoose';
+
+import { BaseEntity } from '@/modules/shared/base/base.entity';
 import { FindAllResponse } from '@/types/common.type';
+
 import { BaseRepositoryInterface } from './base.interface.repository';
 
 export abstract class BaseRepositoryAbstract<T extends BaseEntity>

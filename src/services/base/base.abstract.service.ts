@@ -1,6 +1,8 @@
+import { FindAllResponse } from 'src/types/common.type';
+
 import { BaseEntity } from '@/modules/shared/base/base.entity';
 import { BaseRepositoryInterface } from '@/repositories/base/base.interface.repository';
-import { FindAllResponse } from 'src/types/common.type';
+
 import { BaseServiceInterface } from './base.interface.service';
 
 export abstract class BaseServiceAbstract<T extends BaseEntity>

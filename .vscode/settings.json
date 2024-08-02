@@ -1,0 +1,10 @@
+{
+    "editor.formatOnSave": true,
+    "vs-code-prettier-eslint.prettierLast": true,
+    "eslint.workingDirectories": [
+        {
+            "directory": ".",
+            "changeDetectionStrategy": "onSave"
+        }
+    ]
+}

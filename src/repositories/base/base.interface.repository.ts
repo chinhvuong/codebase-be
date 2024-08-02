@@ -1,5 +1,6 @@
-import { FindAllResponse } from '@/types/common.type';
 import { UpdateQuery, UpdateWithAggregationPipeline } from 'mongoose';
+
+import { FindAllResponse } from '@/types/common.type';
 
 export interface BaseRepositoryInterface<T> {
 	create(dto: T | any): Promise<T>;
