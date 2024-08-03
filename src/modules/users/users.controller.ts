@@ -1,5 +1,7 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+
+import { RequestWithUser } from '@/types/request.type';
 
 import { JwtAccessTokenGuard } from '../auth/guards/jwt-access-token.guard';
 import { UsersService } from './users.service';
@@ -14,5 +16,15 @@ export class UsersController {
 	@ApiBearerAuth()
 	findAll() {
 		return this.usersService.findAll();
+	}
+
+	@Get('me')
+	@UseGuards(JwtAccessTokenGuard)
+	@ApiBearerAuth()
+	getMe(@Req() request: RequestWithUser) {
+		return {
+			...request.user.toObject(),
+			currentRefreshTokens: undefined,
+		};
 	}
 }

@@ -1,13 +1,16 @@
 import {
+	Document,
 	FilterQuery,
+	IfAny,
 	Model,
 	ProjectionType,
 	QueryOptions,
+	Require_id,
 	UpdateQuery,
 	UpdateWithAggregationPipeline,
 } from 'mongoose';
 
-import { BaseEntity } from '@/modules/shared/base/base.entity';
+import { BaseEntity } from '@/modules/shared/entities/base.entity';
 import { FindAllResponse } from '@/types/common.type';
 
 import { BaseRepositoryInterface } from './base.interface.repository';
@@ -72,5 +75,13 @@ export abstract class BaseRepositoryAbstract<T extends BaseEntity>
 			return false;
 		}
 		return !!(await this.model.findOneAndDelete({ _id: id } as any));
+	}
+
+	async findOneAndUpdate(
+		filter?: FilterQuery<T>,
+		update?: UpdateQuery<T>,
+		options?: QueryOptions<T>,
+	): Promise<IfAny<T, any, Document<unknown, any, T> & Require_id<T>>> {
+		return this.model.findOneAndUpdate(filter, update, options);
 	}
 }

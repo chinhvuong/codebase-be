@@ -15,7 +15,9 @@ import {
 } from './configs/configuration.config';
 import { GlobalExceptionFilter } from './exception-filters/global-exception.filter';
 import { AuthModule } from './modules/auth/auth.module';
-import { RequestLoggerMiddleware } from './modules/shared/base/logger.middleware';
+import { FollowModule } from './modules/follow/follow.module';
+import { RequestLoggerMiddleware } from './modules/shared/middlewares/logger.middleware';
+import { RepositoryModule } from './repositories/repository.module';
 
 @Module({
 	imports: [
@@ -53,8 +55,10 @@ import { RequestLoggerMiddleware } from './modules/shared/base/logger.middleware
 			},
 			isGlobal: true,
 		}),
+		RepositoryModule,
 		UsersModule,
 		AuthModule,
+		FollowModule,
 	],
 	controllers: [AppController],
 	providers: [

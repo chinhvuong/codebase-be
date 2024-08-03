@@ -1,32 +1,23 @@
 import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { RequestWithUser } from '@/types/request.type';
 
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
-import { SignUpDto } from './dto/sign-up.dto';
 import { JwtRefreshTokenGuard } from './guards/jwt-refresh-token.guard';
-import { LocalAuthGuard } from './guards/local.guard';
+import { SignatureGuard } from './guards/signature.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
 	constructor(private readonly authService: AuthService) {}
 
-	@Post('sign-up')
-	async signUp(@Body() signUpDto: SignUpDto) {
-		return await this.authService.signUp(signUpDto);
-	}
-
-	@UseGuards(LocalAuthGuard)
+	@UseGuards(SignatureGuard)
 	@Post('sign-in')
-	@ApiBody({
-		type: SignInDto,
-	})
-	async signIn(@Req() request: RequestWithUser) {
-		const { user } = request;
-		return await this.authService.signIn(user._id.toString());
+	// eslint-disable-next-line
+	async signIn(@Req() request: RequestWithUser, @Body() signInData: SignInDto) {
+		return await this.authService.signIn(request.user._id.toString());
 	}
 
 	@ApiBearerAuth()
@@ -34,7 +25,6 @@ export class AuthController {
 	@Post('refresh')
 	async refreshAccessToken(@Req() request: RequestWithUser) {
 		const { user } = request;
-
 		// same like sign in
 		return this.authService.signIn(user._id.toString());
 	}
